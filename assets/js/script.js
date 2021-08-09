@@ -7,8 +7,10 @@ var initalLoadRoute = function(cityName) {
   if (!savedCities) {
   saveCity(cityName);
   getWeatherData(cityName);
+  addSavedCitiesButtons();
   } else {
     getWeatherData(cityName);
+    addSavedCitiesButtons();
   }
 };
 
@@ -22,6 +24,7 @@ var formSubmitHandler = function(event) {
     removeSavedCitiesButtons();
     saveCity(cityName);
     getWeatherData(cityName);
+    addSavedCitiesButtons();
     cityInputEl.value = "";
     
   } else {
@@ -29,8 +32,6 @@ var formSubmitHandler = function(event) {
   }
   console.log(event);
 };
-
-
 
 var getWeatherData = function(city) {
   // format the github api url
@@ -46,7 +47,6 @@ var getWeatherData = function(city) {
           if (response.ok) {
             response.json().then(function(dataTwo) {
               console.log(dataTwo);
-              
               setCityData(dataOne,dataTwo);
               
             });
@@ -66,6 +66,7 @@ var getWeatherData = function(city) {
 };
 
 var setCityData = function(dataOne,fetchedData) {
+  var UvValue = fetchedData.current.uvi
   var unixTime = fetchedData.current.dt;
   var date = new Date(unixTime*1000);
   var currentDate = date.toLocaleDateString("en-US");
@@ -73,7 +74,19 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("currentTemp").innerHTML = "Temp: " + fetchedData.current.temp +"°F";
   document.getElementById("currentWind").innerHTML = "Wind: " + fetchedData.current.wind_speed + " MPH";
   document.getElementById("currentHumidity").innerHTML = "Humidity: " + fetchedData.current.humidity + " %";
-  document.getElementById("currentUv").innerHTML = "UV Index: " + fetchedData.current.uvi;
+  document.getElementById("currentUv").innerHTML = "UV Index: " + UvValue;
+  if (UvValue < 2){
+    document.getElementById("currentUv").style.backgroundColor = 'lightgreen';
+  } else if (UvValue < 5) {
+    document.getElementById("currentUv").style.backgroundColor = 'yellowgreen';
+  } else if (UvValue < 7) {
+    document.getElementById("currentUv").style.backgroundColor = 'orange';
+  } else if (UvValue < 10) {
+    document.getElementById("currentUv").style.backgroundColor = 'red';
+  } else {
+    document.getElementById("currentUv").style.backgroundColor = 'violet';
+  };
+  
 
   unixTime = fetchedData.daily[0].dt;
   date = new Date(unixTime*1000);
@@ -120,8 +133,6 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("windFive").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
   document.getElementById("humFive").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
 
-  
-  addSavedCitiesButtons();
 }
 
 var removeSavedCitiesButtons = function() {
@@ -146,6 +157,7 @@ var addSavedCitiesButtons = function() {
     newEl.setAttribute("id", "citySaved");
     newEl.classList.add("btn", "savedCityButton");
     newEl.innerHTML = citiesStorage[i].name;
+    newEl.setAttribute("onclick", "getWeatherData(this.innerHTML)")
     var lIParent = document.getElementById("savedCities");
     lIParent.appendChild(newEl);
   }
@@ -185,5 +197,5 @@ var deleteLocal = function() {
 }
 
 userFormEl.addEventListener("submit", formSubmitHandler);
-//document.getElementById("deleteStore").addEventListener("click",deleteLocal)
+document.getElementById("deleteStore").addEventListener("click",deleteLocal)
 initalLoadRoute(cityName);

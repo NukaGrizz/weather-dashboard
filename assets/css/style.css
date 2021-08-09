@@ -52,6 +52,11 @@
   .fiveDayCard p {
     margin-left: 5px;
   }
+
+  .uvValue {
+    color: white;
+    background-color: yellowgreen;
+  }
   
   h1,
   h2,
