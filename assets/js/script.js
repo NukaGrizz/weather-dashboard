@@ -2,6 +2,16 @@ var userFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityName");
 var cityName = "Miami";
 
+var initalLoadRoute = function(cityName) {
+  var savedCities = localStorage.getItem("CitiesWeatherArray");
+  if (!savedCities) {
+  saveCity(cityName);
+  getWeatherData(cityName);
+  } else {
+    getWeatherData(cityName);
+  }
+};
+
 var formSubmitHandler = function(event) {
   event.preventDefault();
   // get value from input element
@@ -9,6 +19,8 @@ var formSubmitHandler = function(event) {
   cityName = cityInputEl.value.trim();
 
   if (cityName) {
+    removeSavedCitiesButtons();
+    saveCity(cityName);
     getWeatherData(cityName);
     cityInputEl.value = "";
     
@@ -17,6 +29,8 @@ var formSubmitHandler = function(event) {
   }
   console.log(event);
 };
+
+
 
 var getWeatherData = function(city) {
   // format the github api url
@@ -32,8 +46,9 @@ var getWeatherData = function(city) {
           if (response.ok) {
             response.json().then(function(dataTwo) {
               console.log(dataTwo);
+              
               setCityData(dataOne,dataTwo);
-              saveCity(cityName);
+              
             });
           } else {
             alert("Error: City Not Found");
@@ -104,10 +119,44 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("tempFive").innerHTML = "Temp: " + fetchedData.daily[4].temp.day + "°F";
   document.getElementById("windFive").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
   document.getElementById("humFive").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
+
+  
+  addSavedCitiesButtons();
+}
+
+var removeSavedCitiesButtons = function() {
+  var citiesStorage = localStorage.getItem("CitiesWeatherArray");
+  if (citiesStorage === null){
+  } else {
+    citiesStorage = JSON.parse(citiesStorage);
+    console.log(citiesStorage);
+      for (var i = 0; i < citiesStorage.length; i++) {
+      var lI = document.getElementById("citySaved");
+      lI.remove();
+    }
+  }
+}
+
+var addSavedCitiesButtons = function() {
+  var citiesStorage = localStorage.getItem("CitiesWeatherArray");
+  citiesStorage = JSON.parse(citiesStorage);
+  console.log(citiesStorage);
+  for (var i = 0; i < citiesStorage.length; i++) {
+    var newEl = document.createElement("button")
+    newEl.setAttribute("id", "citySaved");
+    newEl.classList.add("btn", "savedCityButton");
+    newEl.innerHTML = citiesStorage[i].name;
+    var lIParent = document.getElementById("savedCities");
+    lIParent.appendChild(newEl);
+  }
 }
 
 var saveCity = function(cityNew) {
   var citiesWeatherArray = [];
+  var cityNew = {
+    name: cityNew
+  }
+  console.log(cityNew.name)
   var savedCities = localStorage.getItem("CitiesWeatherArray");
   if (!savedCities) {
       console.log(cityNew);
@@ -120,5 +169,21 @@ var saveCity = function(cityNew) {
   };
 };
 
+var deleteLocal = function() {
+  var citiesStorage = localStorage.getItem("CitiesWeatherArray");
+    if (citiesStorage === null){
+    } else {
+      citiesStorage = JSON.parse(citiesStorage);
+      console.log(citiesStorage);
+      for (var i = 0; i < citiesStorage.length; i++) {
+        var lI = document.getElementById("citySaved");
+        lI.remove();
+      };
+      localStorage.removeItem('CitiesWeatherArray');
+    }; 
+
+}
+
 userFormEl.addEventListener("submit", formSubmitHandler);
-getWeatherData(cityName);
+//document.getElementById("deleteStore").addEventListener("click",deleteLocal)
+initalLoadRoute(cityName);
