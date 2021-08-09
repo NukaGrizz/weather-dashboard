@@ -19,64 +19,63 @@
     <aside class="col-12 col-md-4">
       <div class="card">
         <h3 class="card-header text-uppercase">Search for a city:</h3>
-        <form id="user-form" class="card-body">
-          <input name="username" id="username" type="text" autofocus="true" class="form-input" placeholder="city name" />
+        <form id="city-form" class="card-body">
+          <input name="cityName" id="cityName" type="text" autofocus="true" class="form-input" placeholder="city name" />
           <button type="submit" class="btn">Search</button>
         </form>
-        <div id="savedCities" class="card-body savedCitiesList">
-            <button type="submit" class="btn savedCityButton">Miami</button>
-        </div>
-        <div id="deleteStore" class="card-body">
-            <button type="submit" class="btn deleteBtn">Clear Saved Cities</button>
+        <ul id="savedCities" class="card-body savedCitiesList">
+        </ul>
+        <div  class="card-body">
+            <button id="deleteStore" type="submit" class="btn deleteBtn">Clear Saved Cities</button>
         </div>
         
       </div>
     </aside>
     <section class="col-12 col-md-8">
       <section class="col-12 col-md-8 cityInfo">
-        <h2 class="subtitle">Miami (08/08/2021)</h2>
-        <p>Temp: 74.01F</p>
-        <p>Wind: 6.67 MPH</p>
-        <p>Humidity: 46%</p>
-        <p>UV Index: 0.47</p>
+        <h2 id="currentCity" class="subtitle">Miami (08/08/2021)</h2>
+        <p id="currentTemp">Temp: 74.01F</p>
+        <p id="currentWind">Wind: 6.67 MPH</p>
+        <p id="currentHumidity">Humidity: 46%</p>
+        <p id="currentUv" class="uvValue">UV Index: 0.47</p>
       </section>
       <section>
         <h3 class="forcastTitle">5-Day Forcast:</h3>
         <div class="fiveDayContainer">
           <div class="fiveDayCard">
-            <p>1/1/1111</p>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <p id="dateOne">1/1/1111</p>
+            <img id="iconOne" src="http://openweathermap.org/img/w/10d.png" alt="weather icon">
+            <p id="tempOne">Temp:</p>
+            <p id="windOne">Wind:</p>
+            <p id="humOne">Humidity:</p>
           </div>
           <div class="fiveDayCard">
-            <p>1/1/1111</p>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <p id="dateTwo">1/1/1111</p>
+            <img id="iconTwo" src="http://openweathermap.org/img/w/10d.png" alt="weather icon">
+            <p id="tempTwo">Temp:</p>
+            <p id="windTwo">Wind:</p>
+            <p id="humTwo">Humidity:</p>
           </div>
           <div class="fiveDayCard">
-            <p>1/1/1111</p>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <p id="dateThree">1/1/1111</p>
+            <img id="iconThree" src="http://openweathermap.org/img/w/10d.png" alt="weather icon">
+            <p id="tempThree">Temp:</p>
+            <p id="windThree">Wind:</p>
+            <p id="humThree">Humidity:</p>
           </div>
           <div class="fiveDayCard">
-            <p>1/1/1111</p>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <p id="dateFour">1/1/1111</p>
+            <img id="iconFour" src="http://openweathermap.org/img/w/10d.png" alt="weather icon">
+            <p id="tempFour">Temp:</p>
+            <p id="windFour">Wind:</p>
+            <p id="humFour">Humidity:</p>
           </div>
           <div class="fiveDayCard">
-            <p>1/1/1111</p>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
+            <p id="dateFive">1/1/1111</p>
+            <img id="iconFive" src="http://openweathermap.org/img/w/10d.png" alt="weather icon">
+            <p id="tempFive">Temp:</p>
+            <p id="windFive">Wind:</p>
+            <p id="humFive">Humidity:</p>
           </div>
         </div>
       </section>
