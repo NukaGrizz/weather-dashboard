@@ -5,22 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Git it Done</title>
+  <title>Weather Dashboard</title>
 </head>
 
 <body class="flex-column min-100-vh">
-  <header class="hero">
+  <header class="header">
     <h1 class="app-title">Weather Dashboard</h1>
   </header>
 
 
   <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
+    <aside class="col-12 col-md-4">
       <div class="card">
-        <h3 class="card-header text-uppercase">Search for a city</h3>
+        <h3 class="card-header text-uppercase">Search for a city:</h3>
         <form id="user-form" class="card-body">
           <input name="username" id="username" type="text" autofocus="true" class="form-input" placeholder="city name" />
           <button type="submit" class="btn">Search</button>
@@ -33,14 +31,59 @@
         </div>
         
       </div>
-    </div>
-    <div class="col-12 col-md-8">
-      <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
-      <div id="repos-container" class="list-group"></div>
-    </div>
+    </aside>
+    <section class="col-12 col-md-8">
+      <section class="col-12 col-md-8 cityInfo">
+        <h2 class="subtitle">Miami (08/08/2021)</h2>
+        <p>Temp: 74.01F</p>
+        <p>Wind: 6.67 MPH</p>
+        <p>Humidity: 46%</p>
+        <p>UV Index: 0.47</p>
+      </section>
+      <section>
+        <h3 class="forcastTitle">5-Day Forcast:</h3>
+        <div class="fiveDayContainer">
+          <div class="fiveDayCard">
+            <p>1/1/1111</p>
+            <p>icon</p>
+            <p>Temp:</p>
+            <p>Wind:</p>
+            <p>Humidity:</p>
+          </div>
+          <div class="fiveDayCard">
+            <p>1/1/1111</p>
+            <p>icon</p>
+            <p>Temp:</p>
+            <p>Wind:</p>
+            <p>Humidity:</p>
+          </div>
+          <div class="fiveDayCard">
+            <p>1/1/1111</p>
+            <p>icon</p>
+            <p>Temp:</p>
+            <p>Wind:</p>
+            <p>Humidity:</p>
+          </div>
+          <div class="fiveDayCard">
+            <p>1/1/1111</p>
+            <p>icon</p>
+            <p>Temp:</p>
+            <p>Wind:</p>
+            <p>Humidity:</p>
+          </div>
+          <div class="fiveDayCard">
+            <p>1/1/1111</p>
+            <p>icon</p>
+            <p>Temp:</p>
+            <p>Wind:</p>
+            <p>Humidity:</p>
+          </div>
+        </div>
+      </section>
+    </section>
   </main>
   
-  <script src="./assets/js/homepage.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

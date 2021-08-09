@@ -1,3 +1,5 @@
+/* Global Styles begin*/
+
 :root {
     --primary: #ccdad1;
     --secondary: skyblue;
@@ -20,6 +22,36 @@
     line-height: 1.5;
     font-size: 16px;
   }
+
+  .cityInfo {
+    border: black solid 1px;
+    font-size: larger;
+    font-weight: bold;
+  }
+
+  .forcastTitle {
+    margin: 20px auto 10px 10px;
+    font-size: xx-large;
+  }
+
+  .fiveDayContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .fiveDayCard {
+    border-radius: 25px;
+    background-color: blue;
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+    width: 19%;
+    margin: 1%;
+  }
+
+  .fiveDayCard p {
+    margin-left: 5px;
+  }
   
   h1,
   h2,
@@ -32,16 +64,35 @@
     color: black;
     line-height: 1.25;
   }
-  
+
+  /* Global Styles End */
+
+  /* Header Styles Begin */
+
+  .header {
+    background-color: var(--darkblue);
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .app-title {
+    font-size: 2.5rem;
+    background-color: var(--darkblue);
+    color: white;
+  }
+
+  /* Header Styles End */
+
+  /* Main Styles Begin */
+
   main {
     margin: 20px auto;
     width: 94%;
   }
-  
-  p {
-    font-size: 1.2rem;
-  }
-  
+
+    /* Aside Styles Begin */
+
    .btn {
     font-size: 1.3rem;
     text-decoration:none;
@@ -68,58 +119,7 @@
     background-color: grey;
   }
   
-  .btn-inline {
-    display: inline;
-  }
-  
-  .hero {
-    background-color: var(--darkblue);
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-  }
-  
-  .app-title {
-    font-size: 2.5rem;
-    background-color: var(--darkblue);
-    color: white;
-    
-  }
-  
-  .list-group {
-    padding: 0;
-    list-style: none;
-  }
-  
-  .list-item {
-    margin-bottom: 10px;
-    padding: 1.5%;
-    border-radius: var(--border-radius);
-    background-color: var(--light-dark);
-    color: var(--primary);
-    text-decoration: none;
-  }
-  
-  .list-item:hover {
-    background-color: var(--dark);
-  }
-  
-  .status-icon {
-    padding: 2px 5px;
-    margin: 0 5px;
-    background-color: rgba(255,255,255, 1);
-    border-radius: var(--border-radius);
-  }
-  
-  .icon-danger {
-    color: rgb(255, 70, 70);
-  }
-  
-  .icon-success {
-    color: rgb(29, 153, 255);
-  }
-  
-  /* CARDS */
+    /* CARDS */
   .card {
     margin: 0 0 20px 0;
     border: 3px solid var(--dark);
@@ -127,8 +127,7 @@
   }
   
   .card-header {
-    color: var(--primary);
-    background-color: var(--dark);
+    color: black;
     padding: 2.5%;
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
   }
@@ -136,14 +135,9 @@
   .card-body {
     padding: 2.5%;
   }
+  /* Cards end */
   
   /* FORM */
-  .form-label,
-  .form-input,
-  .form-textarea {
-    display: block;
-  }
-  
   .form-label {
     font-size: 1.1rem;
     margin: 0 0 0 5px;
@@ -473,3 +467,5 @@
       flex: 0 0 100%;
     }
   }
+
+  
