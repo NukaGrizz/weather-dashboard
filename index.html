@@ -9,29 +9,36 @@
   <title>Weather Dashboard</title>
 </head>
 
+<!--Header-->
 <body class="flex-column min-100-vh">
   <header class="header">
     <h1 class="app-title">Weather Dashboard</h1>
   </header>
 
-
+<!--Main body-->
   <main class="flex-row justify-space-between">
+    <!--Aside search form and saved searches-->
     <aside class="col-12 col-md-4">
       <div class="card">
+        <!--Search form-->
         <h3 class="card-header text-uppercase">Search for a city:</h3>
         <form id="city-form" class="card-body">
           <input name="cityName" id="cityName" type="text" autofocus="true" class="form-input" placeholder="city name" />
           <button type="submit" class="btn">Search</button>
         </form>
+        <!--Saved Searches list-->
         <ul id="savedCities" class="card-body savedCitiesList">
         </ul>
+        <!--delete button-->
         <div  class="card-body">
             <button id="deleteStore" type="submit" class="btn deleteBtn">Clear Saved Cities</button>
         </div>
         
       </div>
     </aside>
+    <!--Weather Display-->
     <section class="col-12 col-md-8">
+      <!--Current conditions-->
       <section class="col-12 col-md-8 cityInfo">
         <h2 id="currentCity" class="subtitle">Miami (08/08/2021)</h2>
         <p id="currentTemp">Temp: 74.01F</p>
@@ -39,6 +46,7 @@
         <p id="currentHumidity">Humidity: 46%</p>
         <p id="currentUv" class="uvValue">UV Index: 0.47</p>
       </section>
+      <!--Forcast Cards-->
       <section>
         <h3 class="forcastTitle">5-Day Forcast:</h3>
         <div class="fiveDayContainer">

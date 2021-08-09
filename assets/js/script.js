@@ -1,7 +1,9 @@
+//Gloabl Vars
 var userFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityName");
 var cityName = "Miami";
 
+//inital loading functions
 var initalLoadRoute = function(cityName) {
   var savedCities = localStorage.getItem("CitiesWeatherArray");
   if (!savedCities) {
@@ -14,6 +16,7 @@ var initalLoadRoute = function(cityName) {
   }
 };
 
+//functions for new city submission
 var formSubmitHandler = function(event) {
   event.preventDefault();
   // get value from input element
@@ -33,8 +36,9 @@ var formSubmitHandler = function(event) {
   console.log(event);
 };
 
+//Function to get weather data from openweather api
 var getWeatherData = function(city) {
-  // format the github api url
+  // format the current weather api url
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=9dc4a4c7deb216005d4378ae17795624";
 
   // make a request to the url
@@ -42,6 +46,7 @@ var getWeatherData = function(city) {
     if (response.ok) {
       response.json().then(function(dataOne) {
         console.log(dataOne);
+        //format the forcasted weather api call using long and lat from first call response
         var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + dataOne.coord.lat +"&lon=" + dataOne.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=9dc4a4c7deb216005d4378ae17795624";
         fetch(apiUrl).then(function(response) {
           if (response.ok) {
@@ -59,13 +64,16 @@ var getWeatherData = function(city) {
       alert("Error: City Not Found");
     }
   })
+  //catch error from openweather api
   .catch(function(error) {
-    // Notice this `.catch()` getting chained onto the end of the `.then()` method
+    
     alert("Unable to connect to OpenWeather");
   });
 };
 
+// Write weather data from fetch request onto page
 var setCityData = function(dataOne,fetchedData) {
+  //current weather block instructions
   var UvValue = fetchedData.current.uvi
   var unixTime = fetchedData.current.dt;
   var date = new Date(unixTime*1000);
@@ -87,7 +95,7 @@ var setCityData = function(dataOne,fetchedData) {
     document.getElementById("currentUv").style.backgroundColor = 'violet';
   };
   
-
+  //forcast day 1 card instructions
   unixTime = fetchedData.daily[0].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
@@ -97,6 +105,7 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("windOne").innerHTML = "Wind: " + fetchedData.daily[0].wind_speed + " MPH";
   document.getElementById("humOne").innerHTML = "Humidity: " + fetchedData.daily[0].humidity + " %";
 
+  //forcast day 2 block instructions
   unixTime = fetchedData.daily[1].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
@@ -106,6 +115,7 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("windTwo").innerHTML = "Wind: " + fetchedData.daily[1].wind_speed + " MPH";
   document.getElementById("humTwo").innerHTML = "Humidity: " + fetchedData.daily[1].humidity + " %";
 
+  //forcast day 3 block instructions
   unixTime = fetchedData.daily[2].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
@@ -115,6 +125,7 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("windThree").innerHTML = "Wind: " + fetchedData.daily[2].wind_speed + " MPH";
   document.getElementById("humThree").innerHTML = "Humidity: " + fetchedData.daily[2].humidity + " %";
   
+  //forcast day 4 block instructions
   unixTime = fetchedData.daily[3].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
@@ -124,6 +135,7 @@ var setCityData = function(dataOne,fetchedData) {
   document.getElementById("windFour").innerHTML = "Wind: " + fetchedData.daily[3].wind_speed + " MPH";
   document.getElementById("humFour").innerHTML = "Humidity: " + fetchedData.daily[3].humidity + " %";
 
+  //forcast day 5 block instructions
   unixTime = fetchedData.daily[4].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
@@ -135,6 +147,7 @@ var setCityData = function(dataOne,fetchedData) {
 
 }
 
+//remove daved cities buttons
 var removeSavedCitiesButtons = function() {
   var citiesStorage = localStorage.getItem("CitiesWeatherArray");
   if (citiesStorage === null){
@@ -148,6 +161,7 @@ var removeSavedCitiesButtons = function() {
   }
 }
 
+// add saved cities buttons based on local storage
 var addSavedCitiesButtons = function() {
   var citiesStorage = localStorage.getItem("CitiesWeatherArray");
   citiesStorage = JSON.parse(citiesStorage);
@@ -163,6 +177,7 @@ var addSavedCitiesButtons = function() {
   }
 }
 
+//save new city to local storage as object
 var saveCity = function(cityNew) {
   var citiesWeatherArray = [];
   var cityNew = {
@@ -181,6 +196,7 @@ var saveCity = function(cityNew) {
   };
 };
 
+//delete and clear localstorage for this program only
 var deleteLocal = function() {
   var citiesStorage = localStorage.getItem("CitiesWeatherArray");
     if (citiesStorage === null){
@@ -196,6 +212,11 @@ var deleteLocal = function() {
 
 }
 
+//event listener for submitting a new city
 userFormEl.addEventListener("submit", formSubmitHandler);
+
+//event listenter for deleteing local storage button
 document.getElementById("deleteStore").addEventListener("click",deleteLocal)
+
+//inital load function
 initalLoadRoute(cityName);
