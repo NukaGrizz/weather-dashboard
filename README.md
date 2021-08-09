@@ -14,7 +14,7 @@ https://nukagrizz.github.io/weather-dashboard/
 
 
 ## Screenshot
-![Screenshot](./assets/screenshots/code-quiz-screenshot.png)
+![Screenshot](./assets/screenshot/WeatherScreenshot.png)
 
 ## Contribution
 Made by NukaGrizz aka.Joe Tremols
