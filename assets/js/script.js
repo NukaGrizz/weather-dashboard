@@ -1,89 +1,42 @@
-var userFormEl = document.querySelector("#user-form");
-var nameInputEl = document.querySelector("#username");
-var repoContainerEl = document.querySelector("#repos-container");
-var repoSearchTerm = document.querySelector("#repo-search-term");
+var userFormEl = document.querySelector("#city-form");
+var cityInputEl = document.querySelector("#cityName");
+
 
 var formSubmitHandler = function(event) {
   event.preventDefault();
   // get value from input element
-  var username = nameInputEl.value.trim();
+  console.log(cityInputEl);
+  var cityName = cityInputEl.value.trim();
 
-  if (username) {
-    getUserRepos(username);
-    nameInputEl.value = "";
+  if (cityName) {
+    getWeatherData(cityName);
+    cityInputEl.value = "";
+    addLocalStorageCity(cityName);
   } else {
-    alert("Please enter a GitHub username");
+    alert("Please enter a City name");
   }
   console.log(event);
 };
 
-var getUserRepos = function(user) {
+var getWeatherData = function(city) {
   // format the github api url
-  var apiUrl = "https://api.github.com/users/" + user + "/repos";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=9dc4a4c7deb216005d4378ae17795624";
 
   // make a request to the url
   fetch(apiUrl).then(function(response) {
     if (response.ok) {
       response.json().then(function(data) {
-        displayRepos(data, user);
+        console.log(data);
+        setCityData(data);
       });
     } else {
-      alert("Error: GitHub User Not Found");
+      alert("Error: City Not Found");
     }
   })
   .catch(function(error) {
     // Notice this `.catch()` getting chained onto the end of the `.then()` method
-    alert("Unable to connect to GitHub");
+    alert("Unable to connect to OpenWeather");
   });
 };
-
-var displayRepos = function(repos, searchTerm) {
-  // check if api returned any repos
-  if (repos.length === 0) {
-    repoContainerEl.textContent = "No repositories found.";
-    return;
-  }
-  console.log(repos);
-  console.log(searchTerm);
-  // clear old content
-  repoContainerEl.textContent = "";
-  repoSearchTerm.textContent = searchTerm;
-
-  // loop over repos
-  for (var i = 0; i < repos.length; i++) {
-    // format repo name
-    var repoName = repos[i].owner.login + "/" + repos[i].name;
-
-    // create a container for each repo
-    var repoEl = document.createElement("div");
-    repoEl.classList = "list-item flex-row justify-space-between align-center";
-
-    // create a span element to hold repository name
-    var titleEl = document.createElement("span");
-    titleEl.textContent = repoName;
-
-    // append to container
-    repoEl.appendChild(titleEl);
-
-    // create a status element
-    var statusEl = document.createElement("span");
-    statusEl.classList = "flex-row align-center";
-
-    // check if current repo has issues or not
-    if (repos[i].open_issues_count > 0) {
-      statusEl.innerHTML =
-        "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
-    } else {
-      statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-    }
-
-    // append to container
-    repoEl.appendChild(statusEl);
-
-    // append container to the dom
-    repoContainerEl.appendChild(repoEl);
-  }
-};
-
 
 userFormEl.addEventListener("submit", formSubmitHandler);
