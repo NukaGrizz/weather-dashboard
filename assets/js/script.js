@@ -11,7 +11,7 @@ var formSubmitHandler = function(event) {
   if (cityName) {
     getWeatherData(cityName);
     cityInputEl.value = "";
-    addLocalStorageCity(cityName);
+    
   } else {
     alert("Please enter a City name");
   }
@@ -33,6 +33,7 @@ var getWeatherData = function(city) {
             response.json().then(function(dataTwo) {
               console.log(dataTwo);
               setCityData(dataOne,dataTwo);
+              addLocalStorageCity(cityName);
             });
           } else {
             alert("Error: City Not Found");
@@ -50,14 +51,68 @@ var getWeatherData = function(city) {
 };
 
 var setCityData = function(dataOne,fetchedData) {
-  const unixTime = fetchedData.current.dt;
-  const date = new Date(unixTime*1000);
-  const currentDate = date.toLocaleDateString("en-US");
+  var unixTime = fetchedData.current.dt;
+  var date = new Date(unixTime*1000);
+  var currentDate = date.toLocaleDateString("en-US");
   document.getElementById("currentCity").innerHTML = dataOne.name + " (" + currentDate + ")";
   document.getElementById("currentTemp").innerHTML = "Temp: " + fetchedData.current.temp +"°F";
   document.getElementById("currentWind").innerHTML = "Wind: " + fetchedData.current.wind_speed + " MPH";
   document.getElementById("currentHumidity").innerHTML = "Humidity: " + fetchedData.current.humidity + " %";
   document.getElementById("currentUv").innerHTML = "UV Index: " + fetchedData.current.uvi;
+
+  unixTime = fetchedData.daily[0].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateOne").innerHTML = oneDate;
+  document.getElementById("iconOne").src = "http://openweathermap.org/img/w/" + fetchedData.daily[0].weather[0].icon + ".png";
+  document.getElementById("tempOne").innerHTML = "Temp: " + fetchedData.daily[0].temp.day + "°F";
+  document.getElementById("windOne").innerHTML = "Wind: " + fetchedData.daily[0].wind_speed + " MPH";
+  document.getElementById("humOne").innerHTML = "Humidity: " + fetchedData.daily[0].humidity + " %";
+
+  unixTime = fetchedData.daily[1].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateTwo").innerHTML = oneDate;
+  document.getElementById("iconTwo").src = "http://openweathermap.org/img/w/" + fetchedData.daily[1].weather[0].icon + ".png";
+  document.getElementById("tempTwo").innerHTML = "Temp: " + fetchedData.daily[1].temp.day + "°F";
+  document.getElementById("windTwo").innerHTML = "Wind: " + fetchedData.daily[1].wind_speed + " MPH";
+  document.getElementById("humTwo").innerHTML = "Humidity: " + fetchedData.daily[1].humidity + " %";
+
+  unixTime = fetchedData.daily[2].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateThree").innerHTML = oneDate;
+  document.getElementById("iconThree").src = "http://openweathermap.org/img/w/" + fetchedData.daily[2].weather[0].icon + ".png";
+  document.getElementById("tempThree").innerHTML = "Temp: " + fetchedData.daily[2].temp.day + "°F";
+  document.getElementById("windThree").innerHTML = "Wind: " + fetchedData.daily[2].wind_speed + " MPH";
+  document.getElementById("humThree").innerHTML = "Humidity: " + fetchedData.daily[2].humidity + " %";
+  
+  unixTime = fetchedData.daily[3].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateFour").innerHTML = oneDate;
+  document.getElementById("iconFour").src = "http://openweathermap.org/img/w/" + fetchedData.daily[3].weather[0].icon + ".png";
+  document.getElementById("tempFour").innerHTML = "Temp: " + fetchedData.daily[3].temp.day + "°F";
+  document.getElementById("windFour").innerHTML = "Wind: " + fetchedData.daily[3].wind_speed + " MPH";
+  document.getElementById("humFour").innerHTML = "Humidity: " + fetchedData.daily[3].humidity + " %";
+
+  unixTime = fetchedData.daily[4].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateFour").innerHTML = oneDate;
+  document.getElementById("iconFour").src = "http://openweathermap.org/img/w/" + fetchedData.daily[4].weather[0].icon + ".png";
+  document.getElementById("tempFour").innerHTML = "Temp: " + fetchedData.daily[4].temp.day + "°F";
+  document.getElementById("windFour").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
+  document.getElementById("humFour").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
+
+  unixTime = fetchedData.daily[4].dt;
+  date = new Date(unixTime*1000);
+  var oneDate = date.toLocaleDateString("en-US");
+  document.getElementById("dateFive").innerHTML = oneDate;
+  document.getElementById("iconFive").src = "http://openweathermap.org/img/w/" + fetchedData.daily[4].weather[0].icon + ".png";
+  document.getElementById("tempFive").innerHTML = "Temp: " + fetchedData.daily[4].temp.day + "°F";
+  document.getElementById("windFive").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
+  document.getElementById("humFive").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
 }
 
 userFormEl.addEventListener("submit", formSubmitHandler);
