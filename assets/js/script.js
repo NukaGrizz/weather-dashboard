@@ -33,7 +33,7 @@ var getWeatherData = function(city) {
             response.json().then(function(dataTwo) {
               console.log(dataTwo);
               setCityData(dataOne,dataTwo);
-              addLocalStorageCity(cityName);
+              saveCity(cityName);
             });
           } else {
             alert("Error: City Not Found");
@@ -99,21 +99,26 @@ var setCityData = function(dataOne,fetchedData) {
   unixTime = fetchedData.daily[4].dt;
   date = new Date(unixTime*1000);
   var oneDate = date.toLocaleDateString("en-US");
-  document.getElementById("dateFour").innerHTML = oneDate;
-  document.getElementById("iconFour").src = "http://openweathermap.org/img/w/" + fetchedData.daily[4].weather[0].icon + ".png";
-  document.getElementById("tempFour").innerHTML = "Temp: " + fetchedData.daily[4].temp.day + "°F";
-  document.getElementById("windFour").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
-  document.getElementById("humFour").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
-
-  unixTime = fetchedData.daily[4].dt;
-  date = new Date(unixTime*1000);
-  var oneDate = date.toLocaleDateString("en-US");
   document.getElementById("dateFive").innerHTML = oneDate;
   document.getElementById("iconFive").src = "http://openweathermap.org/img/w/" + fetchedData.daily[4].weather[0].icon + ".png";
   document.getElementById("tempFive").innerHTML = "Temp: " + fetchedData.daily[4].temp.day + "°F";
   document.getElementById("windFive").innerHTML = "Wind: " + fetchedData.daily[4].wind_speed + " MPH";
   document.getElementById("humFive").innerHTML = "Humidity: " + fetchedData.daily[4].humidity + " %";
 }
+
+var saveCity = function(cityNew) {
+  var citiesWeatherArray = [];
+  var savedCities = localStorage.getItem("CitiesWeatherArray");
+  if (!savedCities) {
+      console.log(cityNew);
+      citiesWeatherArray.push(cityNew);
+      localStorage.setItem("CitiesWeatherArray", JSON.stringify(citiesWeatherArray));
+  } else {
+    savedCities = JSON.parse(savedCities);
+      savedCities.push(cityNew);
+      localStorage.setItem("CitiesWeatherArray", JSON.stringify(savedCities));
+  };
+};
 
 userFormEl.addEventListener("submit", formSubmitHandler);
 getWeatherData(cityName);
